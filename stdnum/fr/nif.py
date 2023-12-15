@@ -30,6 +30,8 @@ More information:
 * https://ec.europa.eu/taxation_customs/tin/tinByCountry.html
 * https://fr.wikipedia.org/wiki/Numéro_d%27Immatriculation_Fiscale#France
 
+>>> validate('3023217600053')
+'3023217600053'
 >>> validate('0701987765432')
 '0701987765432'
 >>> validate('070198776543')
@@ -63,6 +65,8 @@ def validate(number):
         raise InvalidComponent()
     if len(number) != 13:
         raise InvalidLength()
+    if int(number[0:10]) % 511 == int(number[10:13]):
+        raise InvalidChecksum()
     return number
 
 
